@@ -57,7 +57,7 @@ propertyRoute.post('/sell', async (c) => {
                 car_parking: body.car_parking,
                 amenities: body.amenities,
                 buildup_area: body.buildup_area,
-                ownerId: body.ownerId
+                ownerId: userId
             }
         })
         return c.json(property.id)
@@ -68,7 +68,7 @@ propertyRoute.post('/sell', async (c) => {
 
 })
 
-propertyRoute.get('/sell/owner', async (c) => {
+propertyRoute.post('/sell/owner', async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
@@ -90,16 +90,15 @@ propertyRoute.get('/sell/owner', async (c) => {
     return c.json(user)
 })
 
-propertyRoute.get('/selection', async (c) => {
+propertyRoute.get('/:selection', async (c) => {
+    const selection = c.req.param("selection")
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
 
-    const body = await c.req.json()
-
     const properties = await prisma.property.findMany({
         where: {
-            selection: body.selection,
+            selection: selection,
         },
     })
 
@@ -107,15 +106,49 @@ propertyRoute.get('/selection', async (c) => {
 
 })
 
-propertyRoute.get('/selection/:id', async (c) => {
+propertyRoute.get('/', async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
-    
-    const body = await c.req.json()
+
+    const topPicks = await prisma.property.findMany({
+        take: 5,
+    })
+
+    return c.json(topPicks)
+})
+
+propertyRoute.get('/:selection/:id', async (c) => {
+    const id = c.req.param("id")
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate())
+
     const property = await prisma.property.findFirst({
         where: {
-            id: body.id,
+            id: id,
+        },
+        select: {
+            description: true,
+            price: true,
+            location: true,
+            buildup_area: true,
+            id: true,
+            selection: true,
+            image: true,
+            amenities: true,
+            car_parking: true,
+            no_bedroooms: true,
+            no_toilets: true,
+            no_kitchens: true,
+            owner: {
+                select: {
+                    username: true,
+                    mobileNumber: true,
+                    id: true,
+                    email:true
+                }
+            }
         }
     })
     return c.json(property)

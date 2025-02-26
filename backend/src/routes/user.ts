@@ -32,7 +32,7 @@ userRoute.post('/signup', async (c) => {
     } catch (error) {
         console.log(error)
         return c.json({
-            message: "error while signup!!!"
+            error: "error while signup!!!"
         })
     }
 
@@ -45,12 +45,17 @@ userRoute.post('/signin', async (c) => {
 
     const body = await c.req.json()
     try {
-        const user = await prisma.user.findFirst({
+        const user = await prisma.user.findUnique({
             where: {
                 username: body.username,
                 password: body.password
             }
         })
+
+        if(!user){
+            c.status(403)
+            return c.json({error:"Incorrect credentials"})
+        }
 
         const token = await sign({ id: user?.id }, c.env.JWT_SECRET)
         return c.json(token)
