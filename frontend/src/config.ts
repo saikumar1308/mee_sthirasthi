@@ -1,1 +1,1 @@
-export const BACKEND_URL = "https://backend-mee_sthirasthi.saikumarpentala.workers.dev"
+export const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
