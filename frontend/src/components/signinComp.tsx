@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { BACKEND_URL } from "../config"
 
 export function SigninComp() {
     const [postInputs, setPostInputs] = useState({
@@ -12,10 +13,10 @@ export function SigninComp() {
 
     async function sendRequest() {
         try {
-            const response = await axios.post("http://127.0.0.1:8787/user/signin", postInputs)
+            const response = await axios.post(`${BACKEND_URL}/user/signin`, postInputs)
             const token = response.data
             localStorage.setItem("token", token)
-            navigate("/home")
+            navigate("/")
 
         } catch (error) {
             console.log(error)
@@ -28,7 +29,7 @@ export function SigninComp() {
             <div className="flex justify-center">
                 <div className="relative">
                     <div className="absolute top-0 right-0">
-                        <Link to={"/home"}>
+                        <Link to={"/"}>
                         <svg className="w-6 h-6 text-gray-800 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 17.94 6M18 18 6.06 6" />
                         </svg>

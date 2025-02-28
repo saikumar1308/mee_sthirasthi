@@ -1,0 +1,41 @@
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @font-face {
+    font-family: "Gurajada";
+    src: url("/fonts/Gurajada-Regular.woff2") format("woff2"),
+         url("/fonts/Gurajada-Regular.woff") format("woff"),
+         url("/fonts/Gurajada-Regular.ttf") format("trueType");
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .gurajada-regular {
+    font-family: "Gurajada", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "PlayfairDisplay";
+    src: url("/fonts/PlayfairDisplay-Bold.ttf") format("trueType");;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .font-playfair {
+    font-family: "PlayfairDisplay", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  

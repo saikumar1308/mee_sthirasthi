@@ -3,9 +3,24 @@ import { AppBar } from "../components/AppBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "../components/footer";
+import { BACKEND_URL } from "../config";
 
 export function SellingPage() {
-    const [postinputs, setPostinputs] = useState({
+    type PostInputs = {
+        price: number,
+        location: string,
+        description: string,
+        selection: string,
+        image: string,
+        no_bedroooms: number,
+        no_kitchens: number,
+        no_toilets: number,
+        car_parking: boolean,
+        amenities: string,
+        buildup_area: number,
+        ownerId: string,
+    }
+    const [postinputs, setPostinputs] = useState<PostInputs>({
         price: 1,
         location: "",
         description: "",
@@ -14,9 +29,9 @@ export function SellingPage() {
         no_bedroooms: 1,
         no_kitchens: 1,
         no_toilets: 1,
-        car_parking: true,
+        car_parking: false,
         amenities: "",
-        buildup_area: 1,
+        buildup_area: 500,
         ownerId: "",
     });
 
@@ -30,33 +45,33 @@ export function SellingPage() {
 
     async function uploadImage(file: File) {
         if (!file) {
-          alert("Please select the image!!!");
-          return null;
+            alert("Please select the image!!!");
+            return null;
         }
         const data = new FormData();
         data.append("file", file);
         data.append("upload_preset", "mee_sthiraasthi");
         data.append("cloud_name", "ddijvm8a4");
-    
+
         try {
-          const response = await fetch(
-            "https://api.cloudinary.com/v1_1/ddijvm8a4/image/upload",
-            {
-              method: "POST",
-              body: data,
-            }
-          );
-      
-          const imageUrl = await response.json();
-          console.log(imageUrl.url);
-          
-          return imageUrl.url;
+            const response = await fetch(
+                "https://api.cloudinary.com/v1_1/ddijvm8a4/image/upload",
+                {
+                    method: "POST",
+                    body: data,
+                }
+            );
+
+            const imageUrl = await response.json();
+            console.log(imageUrl.url);
+
+            return imageUrl.url;
         } catch (error) {
-          console.log("Error uploading image: ",error)
-          return null;
+            console.log("Error uploading image: ", error)
+            return null;
         }
-        
-      }
+
+    }
 
     const navigate = useNavigate();
 
@@ -69,12 +84,12 @@ export function SellingPage() {
                 return;
             }
             const imageUrl = await uploadImage(imageSelected);
-            
+
             const updatedFormData = { ...postinputs, image: imageUrl };
 
             try {
                 await axios.post(
-                    `http://127.0.0.1:8787/property/sell`,
+                    `${BACKEND_URL}/property/sell`,
                     updatedFormData,
                     {
                         headers: {
@@ -83,7 +98,7 @@ export function SellingPage() {
                     }
                 );
                 alert("your upload is successfull ");
-                navigate("/home");
+                navigate("/");
             } catch (error) {
                 alert("error while uploading" + error);
             }
@@ -96,17 +111,18 @@ export function SellingPage() {
         <div>
             <AppBar />
             <div className="max-w-screen-xl mx-auto p-4 ">
-                {/* <ImageUploader onUploadTrigger={setUploadFunction} /> */}
-                <input type="file" name="" id="" onChange={fileChange} />
-
-                <div className="max-w-xl mx-auto p-4 rounded-xl  bg-slate-300">
+                <div className="max-w-3xl mx-auto p-4 rounded-xl  bg-blue-100 p-6">
                     <form onSubmit={handleSubmit}>
-                        <ul className="grid gap-6 grid-cols-2">
-                            <li>
+                        <div className="flex justify-between mb-6">
+                            <label htmlFor="" className="font-bold">Upload photo: </label>
+                            <input type="file" name="" id="" onChange={fileChange} className="border rounded cursor-pointer" />
+                        </div>
+                        <ul className="grid gap-6 grid-cols-2 justify-items-stretch">
+                            <li className="">
                                 <label className="block font-bold ">
                                     Price:
                                 </label>
-                                <input type="text" placeholder="₹" className="rounded p-1 border mb-3" onChange={(c) => {
+                                <input type="text" placeholder="₹" className="rounded p-1 border mb-3 w-50 h-10" onChange={(c) => {
                                     setPostinputs({
                                         ...postinputs,
                                         price: Number(c.target.value),
@@ -114,11 +130,11 @@ export function SellingPage() {
                                 }}
                                 />
                             </li>
-                            <li>
+                            <li className="justify-self-end">
                                 <label className=" block font-bold ">
                                     Location:
                                 </label>
-                                <input type="text" placeholder="ex: 4-15/A" className="rounded p-1 border mb-3" onChange={(c) => {
+                                <input type="text" placeholder="ex: 4-15/A" className="rounded p-1 border mb-3 w-50 h-10" onChange={(c) => {
                                     setPostinputs({
                                         ...postinputs,
                                         location: c.target.value,
@@ -130,7 +146,7 @@ export function SellingPage() {
                                 <label className="block font-bold ">
                                     No of Bedrooms:
                                 </label>
-                                <input type="text" placeholder="ex: 2" className="rounded p-1 border mb-3" onChange={(c) => {
+                                <input type="text" placeholder="ex: 2" className="rounded p-1 border mb-3 w-50 h-10" onChange={(c) => {
                                     setPostinputs({
                                         ...postinputs,
                                         no_bedroooms: Number(c.target.value),
@@ -138,11 +154,11 @@ export function SellingPage() {
                                 }}
                                 />
                             </li>
-                            <li>
+                            <li className="justify-self-end">
                                 <label className="block font-bold ">
                                     No of Kitchens:
                                 </label>
-                                <input type="text" placeholder="" className="rounded p-1 border mb-3" onChange={(c) => {
+                                <input type="text" placeholder="" className="rounded p-1 border mb-3 w-50 h-10" onChange={(c) => {
                                     setPostinputs({
                                         ...postinputs,
                                         no_kitchens: Number(c.target.value),
@@ -155,7 +171,7 @@ export function SellingPage() {
                                 <input
                                     type="text"
                                     placeholder="ex: 2"
-                                    className="rounded p-1 border mb-3"
+                                    className="rounded p-1 border mb-3 w-50 h-10"
                                     onChange={(c) => {
                                         setPostinputs({
                                             ...postinputs,
@@ -164,14 +180,14 @@ export function SellingPage() {
                                     }}
                                 />
                             </li>
-                            <li>
+                            <li className="justify-self-end">
                                 <label className="block font-bold ">
                                     Buildup Area:
                                 </label>
                                 <input
                                     type="text"
                                     placeholder="ex: rent"
-                                    className="rounded p-1 border mb-3"
+                                    className="rounded p-1 border mb-3 w-50 h-10"
                                     onChange={(c) => {
                                         setPostinputs({
                                             ...postinputs,
@@ -189,9 +205,9 @@ export function SellingPage() {
                                 <input
                                     id="default-radio-1"
                                     type="radio"
-                                    value=""
-                                    name="default-radio"
+                                    name="car-parking"
                                     className="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500  "
+                                    checked={postinputs.car_parking === true}
                                     onChange={() => {
                                         setPostinputs({
                                             ...postinputs,
@@ -208,12 +224,12 @@ export function SellingPage() {
                             </div>
                             <div className="flex items-center">
                                 <input
-                                    checked
                                     id="default-radio-2"
                                     type="radio"
-                                    value=""
-                                    name="default-radio"
+                                    name="car-parking"
                                     className="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                                    
+                                    checked={postinputs.car_parking === false}
                                     onChange={() => {
                                         setPostinputs({
                                             ...postinputs,
@@ -237,14 +253,14 @@ export function SellingPage() {
                                 <input
                                     id="radio-1"
                                     type="radio"
-                                    value=""
                                     name="radio"
                                     className="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500  "
+                                    checked={postinputs.selection === "rent"}
                                     onChange={() => {
-                                        setPostinputs({
-                                            ...postinputs,
+                                        setPostinputs(prev => ({
+                                            ...prev,
                                             selection: "rent",
-                                        });
+                                        }));
                                     }}
                                 />
                                 <label
@@ -256,39 +272,37 @@ export function SellingPage() {
                             </div>
                             <div className="flex items-center mr-3">
                                 <input
-                                    checked
                                     id="radio-2"
                                     type="radio"
-                                    value=""
                                     name="radio"
                                     className="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                                    checked={postinputs.selection === "buy"}
                                     onChange={() => {
-                                        setPostinputs({
-                                            ...postinputs,
+                                        setPostinputs(prev => ({
+                                            ...prev,
                                             selection: "buy",
-                                        });
+                                        }));
                                     }}
                                 />
                                 <label
                                     htmlFor="radio-2"
                                     className="ms-2 text-sm font-medium text-gray-900 "
                                 >
-                                    Buy
+                                    Sell
                                 </label>
                             </div>
                             <div className="flex items-center">
                                 <input
-                                    checked
                                     id="radio-3"
                                     type="radio"
-                                    value=""
                                     name="radio"
                                     className="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
+                                    checked={postinputs.selection === "lease"}
                                     onChange={() => {
-                                        setPostinputs({
-                                            ...postinputs,
+                                        setPostinputs(prev => ({
+                                            ...prev,
                                             selection: "lease",
-                                        });
+                                        }));
                                     }}
                                 />
                                 <label
@@ -314,7 +328,7 @@ export function SellingPage() {
                                     });
                                 }}
                                 id="description"
-                                rows={3}
+                                rows={6}
                                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                                 placeholder="Write a detailed description of the property..."
                             ></textarea>
@@ -335,14 +349,14 @@ export function SellingPage() {
                                 }}
                                 id="message"
                                 rows={3}
-                                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+                                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg"
                                 placeholder="Mention all the amenities available..."
                             ></textarea>
                         </div>
                         <div className="flex justify-center mt-6">
                             <button
                                 type="submit"
-                                className="cursor-pointer text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none "
+                                className="cursor-pointer text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none "
                             >
                                 Upload
                             </button>

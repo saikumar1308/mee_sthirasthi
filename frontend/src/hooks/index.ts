@@ -10,7 +10,7 @@ interface Property {
     "id": string,
     "selection": string,
     "image": string,
-    "amentiies": string,
+    "amenities": string,
     "car_parking": boolean,
     "no_bedroooms": number,
     "no_toilets": number,
@@ -52,14 +52,16 @@ export function  useProperty({ id }: any) {
 }
 
 export function useAllProperties() {
+    const [loading, setLoading] = useState(true)
     const [AllProperties, setAllProperties] = useState<Property[]>([])
 
     useEffect(() => {
-        axios.get(`${BACKEND_URL}}/property`).then(response => {
+        axios.get(`${BACKEND_URL}/property`).then(response => {
             setAllProperties(response.data)
+            setLoading(false)
         })
     }
     ,[])
 
-    return { AllProperties}
+    return { AllProperties, loading}
 }

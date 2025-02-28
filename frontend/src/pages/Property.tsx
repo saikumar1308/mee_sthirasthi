@@ -32,7 +32,7 @@ export function Property() {
                     kitchen={property?.no_kitchens}
                     bedrooms={property?.no_bedroooms}
                     toilets={property?.no_toilets}
-                    amenities={property?.amentiies}
+                    amenities={property?.amenities}
                     parking={property?.car_parking}
                     selection={property?.selection}
                     id={property?.owner.id}
