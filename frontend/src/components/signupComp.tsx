@@ -33,7 +33,7 @@ export function SignupComp() {
     }
 
     return <div className="h-screen pt-20">
-        <div className="flex justify-self-center flex-col  border w-96 p-6 rounded-lg text-2xl shadow-lg shadow-black bg-white">
+        <div className="flex justify-self-center flex-col  border w-96 p-6 rounded-lg text-2xl shadow-lg shadow-blue-800 bg-white">
             <div className="flex justify-center">
                 <div className="relative">
                     <div className="absolute top-0 right-0">
@@ -43,11 +43,11 @@ export function SignupComp() {
                             </svg>
                         </Link>
                     </div>
-                    <div className="justify-center flex font-serif text-5xl font-extrabold  pb-2">
+                    <div className="justify-center flex font-serif text-5xl text-blue-800 font-extrabold  pb-2">
                         <h1>Signup</h1>
                     </div>
                     <div className=" p-3">
-                        <input className="border-b p-1 focus:outline-none" type="text" placeholder="Name" onChange={(c) => {
+                        <input className="border-b p-1 focus:outline-none" type="text" placeholder="Name*" onChange={(c) => {
                             setPostInputs({
                                 ...postInputs,
                                 username: c.target.value
@@ -55,7 +55,7 @@ export function SignupComp() {
                         }} />
                     </div>
                     <div className=" p-3">
-                        <input className="border-b p-1 focus:outline-none" type="password" placeholder="Password" onChange={(c) => {
+                        <input className="border-b p-1 focus:outline-none" type="password" placeholder="Password*" onChange={(c) => {
                             setPostInputs({
                                 ...postInputs,
                                 password: c.target.value
@@ -63,7 +63,7 @@ export function SignupComp() {
                         }} />
                     </div>
                     <div className=" p-3">
-                        <input className="border-b p-1 focus:outline-none" type="tel" placeholder="Number" onChange={(c) => {
+                        <input className="border-b p-1 focus:outline-none" type="tel" placeholder="Number*" onChange={(c) => {
                             setPostInputs({
                                 ...postInputs,
                                 number: Number(c.target.value)
@@ -71,7 +71,7 @@ export function SignupComp() {
                         }} />
                     </div>
                     <div className=" p-3">
-                        <input className="border-b p-1 focus:outline-none" type="email" placeholder="Email" onChange={(c) => {
+                        <input className="border-b p-1 focus:outline-none" type="email" placeholder="Email*" onChange={(c) => {
                             setPostInputs({
                                 ...postInputs,
                                 email: c.target.value
@@ -79,7 +79,7 @@ export function SignupComp() {
                         }} />
                     </div>
                     <div className="p-3">
-                        <button type="submit" className="border border-blue-900 p-1 pl-3 pr-3 rounded-lg bg-stone-950 text-white cursor-pointer" onClick={sendRequest} >Signup</button>
+                        <button type="submit" className=" border-blue-900 p-2 px-5 rounded-3xl bg-blue-500 text-white cursor-pointer" onClick={sendRequest} >Signup</button>
                     </div>
                     <div className="flex">
                         <p className="text-sm">You already have an account?</p>

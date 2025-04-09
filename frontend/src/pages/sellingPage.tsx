@@ -111,18 +111,18 @@ export function SellingPage() {
         <div>
             <AppBar />
             <div className="max-w-screen-xl mx-auto p-4 ">
-                <div className="max-w-3xl mx-auto p-4 rounded-xl  bg-blue-100 p-6">
+                <div className="max-w-3xl mx-auto rounded-xl  bg-blue-100 p-6">
                     <form onSubmit={handleSubmit}>
                         <div className="flex justify-between mb-6">
-                            <label htmlFor="" className="font-bold">Upload photo: </label>
-                            <input type="file" name="" id="" onChange={fileChange} className="border rounded cursor-pointer" />
+                            <label htmlFor="" className="font-bold ">Upload photo: </label>
+                            <input type="file" name="" id="" onChange={fileChange} className="p-1 w-50 h-8 border rounded cursor-pointer" />
                         </div>
-                        <ul className="grid gap-6 grid-cols-2 justify-items-stretch">
-                            <li className="">
-                                <label className="block font-bold ">
+                        <ul className="grid gap-6 md:grid-cols-2 justify-items-stretch">
+                            <li className="flex justify-between md:block">
+                                <label className="md:block font-bold ">
                                     Price:
                                 </label>
-                                <input type="text" placeholder="₹" className="rounded p-1 border mb-3 w-50 h-10" onChange={(c) => {
+                                <input type="text" placeholder="₹" className=" rounded p-1 border mb-3 w-50 h-10" onChange={(c) => {
                                     setPostinputs({
                                         ...postinputs,
                                         price: Number(c.target.value),
@@ -130,8 +130,8 @@ export function SellingPage() {
                                 }}
                                 />
                             </li>
-                            <li className="justify-self-end">
-                                <label className=" block font-bold ">
+                            <li className="md:justify-self-end flex justify-between md:block">
+                                <label className=" md:block font-bold ">
                                     Location:
                                 </label>
                                 <input type="text" placeholder="ex: 4-15/A" className="rounded p-1 border mb-3 w-50 h-10" onChange={(c) => {
@@ -142,8 +142,8 @@ export function SellingPage() {
                                 }}
                                 />
                             </li>
-                            <li>
-                                <label className="block font-bold ">
+                            <li className="flex justify-between md:block">
+                                <label className="md:block font-bold ">
                                     No of Bedrooms:
                                 </label>
                                 <input type="text" placeholder="ex: 2" className="rounded p-1 border mb-3 w-50 h-10" onChange={(c) => {
@@ -154,8 +154,8 @@ export function SellingPage() {
                                 }}
                                 />
                             </li>
-                            <li className="justify-self-end">
-                                <label className="block font-bold ">
+                            <li className="md:justify-self-end flex justify-between md:block">
+                                <label className="md:block font-bold ">
                                     No of Kitchens:
                                 </label>
                                 <input type="text" placeholder="" className="rounded p-1 border mb-3 w-50 h-10" onChange={(c) => {
@@ -166,8 +166,8 @@ export function SellingPage() {
                                 }}
                                 />
                             </li>
-                            <li>
-                                <label className="block font-bold ">No of Toilets:</label>
+                            <li className="flex justify-between md:block">
+                                <label className="md:block font-bold ">No of Toilets:</label>
                                 <input
                                     type="text"
                                     placeholder="ex: 2"
@@ -180,8 +180,8 @@ export function SellingPage() {
                                     }}
                                 />
                             </li>
-                            <li className="justify-self-end">
-                                <label className="block font-bold ">
+                            <li className="md:justify-self-end flex justify-between md:block">
+                                <label className="md:block font-bold ">
                                     Buildup Area:
                                 </label>
                                 <input

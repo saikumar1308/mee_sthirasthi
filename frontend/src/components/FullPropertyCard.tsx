@@ -33,7 +33,7 @@ export function FullPropertyCard({ id, description, price, location, buildup_are
             <img className="h-100 w-full mb-6" src={image} alt="" />
             <h5 className="mb-2 text-4xl font-lg tracking-tight text-gray-900 ">For {`${selection === "buy" ? "Sale" : selection}`} in {location}</h5>
 
-            <div className="grid grid-cols-2 my-6">
+            <div className="grid md:grid-cols-2 my-6">
                 <div className=" text-center border border-slate-300 flex">
                     <div className="border-r border-slate-300 p-4">
                         <img src="/bedroom.svg" alt="" className="w-10 " />

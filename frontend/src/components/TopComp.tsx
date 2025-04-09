@@ -7,11 +7,11 @@ export function TopComp() {
 
     return <div>
         <div className=" rounded-xl p-3 ">
-            <ul className="flex flex-wrap text-lg font-medium text-center text-gray-900 justify-between border-b ">
+            <ul className="flex md:flex-wrap text-lg font-medium text-center text-gray-900 justify-between border-b ">
                 {["rent", "buy", "lease"].map((option) => (
-                    <li key={option} className="me-2 ml-3">
-                        <button className={`inline-block px-4 py-2 cursor-pointer transition-all ${selection === option ? "border-b-4 border-blue-600 pb-1" : " hover:underline border-b border-transparent"}`} 
-                        onClick={() => {setSelection(option)}}
+                    <li key={option} className="mx-2">
+                        <button className={`inline-block px-4 py-2 cursor-pointer transition-all ${selection === option ? "border-b-4 border-blue-600" : " hover:underline border-b-4 border-transparent"}`}
+                            onClick={() => { setSelection(option) }}
                         >{option.charAt(0).toUpperCase() + option.slice(1)}</button>
                     </li>
                 ))}

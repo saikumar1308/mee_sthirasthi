@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { BACKEND_URL } from "../config"
 
-export function SigninComp() {
+export function     SigninComp() {
     const [postInputs, setPostInputs] = useState({
         username: "",
         password: ""
@@ -25,7 +25,7 @@ export function SigninComp() {
     }
 
     return <div className="h-screen pt-20">
-        <div className="flex justify-self-center flex-col  border w-96 p-6 rounded-lg text-2xl shadow-lg shadow-black bg-white">
+        <div className="flex justify-self-center flex-col  border w-96 p-6 rounded-lg text-2xl shadow-lg shadow-blue-800 bg-white">
             <div className="flex justify-center">
                 <div className="relative">
                     <div className="absolute top-0 right-0">
@@ -35,7 +35,7 @@ export function SigninComp() {
                         </svg>
                         </Link>
                     </div>
-                    <div className="justify-center flex font-serif text-5xl font-extrabold pb-2">
+                    <div className="justify-center flex font-serif text-blue-800 text-5xl font-extrabold pb-2">
                         <h1>Signin</h1>
                     </div>
                     <div className=" p-3">
@@ -55,7 +55,7 @@ export function SigninComp() {
                         }} />
                     </div>
                     <div className="p-3">
-                        <button type="submit" className="border border-blue-900 p-1 pl-3 pr-3 rounded-lg bg-stone-950 text-white cursor-pointer" onClick={sendRequest} >Signin</button>
+                        <button type="submit" className=" border-blue-900 p-2 px-5 font-semibold rounded-3xl bg-blue-500 text-white cursor-pointer" onClick={sendRequest} >Signin</button>
                     </div>
                     <div className="flex">
                         <p className="text-sm">You already have an account?</p>

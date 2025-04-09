@@ -6,7 +6,6 @@ import { useAllProperties } from "../hooks";
 
 export function Home() {
     const { AllProperties, loading } = useAllProperties();
-    console.log("hello")
 
     if (loading) {
         return <div>
@@ -14,7 +13,7 @@ export function Home() {
             <div className="max-w-screen-xl mx-auto p-4">
                 <div className="bg-[url('/Sthirasthi-bg.jpg')] bg-blend-multiply bg-center bg-no-repeat rounded-xl md:min-h-100 max-h-80">
                     <div className="  mx-auto md:max-w-md max-w-sm text-center md:px-4 md:py-35 px-10 py-15">
-                        <div className="backdrop-blur-xs  rounded-xl">
+                        <div className="backdrop-blur-xs rounded-xl">
                             <TopComp />
                         </div>
                     </div>
