@@ -7,6 +7,7 @@ import { Home } from './pages/home'
 import { AllProperties } from './pages/allProperties'
 import { Property } from './pages/Property'
 import { SellingPage } from './pages/sellingPage'
+import { Analytics } from '@vercel/analytics/next'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route path='/properties/sell' element={<SellingPage />} />
       </Routes>
       </BrowserRouter>
+      <Analytics />
     </>
   )
 }
