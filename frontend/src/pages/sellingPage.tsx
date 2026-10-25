@@ -219,7 +219,7 @@ export function SellingPage() {
         const token = localStorage.getItem("token");
         if (!token) {
             toast.error("Please login before listing a property.");
-            navigate("/signin");
+            navigate("/signin?redirect=/properties/sell");
             return;
         }
 

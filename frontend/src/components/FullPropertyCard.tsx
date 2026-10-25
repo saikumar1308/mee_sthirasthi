@@ -67,7 +67,7 @@ export function FullPropertyCard({
         const token = localStorage.getItem("token")
         if (!token) {
             toast.error("Please sign in to contact the property owner")
-            navigate("/signin")
+            navigate(`/signin?redirect=${encodeURIComponent(window.location.pathname)}`)
             return
         }
 
@@ -87,7 +87,7 @@ export function FullPropertyCard({
             toast.success("Owner details verified!")
         } catch (error) {
             toast.error("Session expired or invalid. Please sign in again.")
-            navigate("/signin")
+            navigate(`/signin?redirect=${encodeURIComponent(window.location.pathname)}`)
             console.error("Error fetching owner details", error)
         } finally {
             setLoadingOwner(false)

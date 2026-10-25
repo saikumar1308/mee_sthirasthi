@@ -70,13 +70,19 @@ export function AppBar() {
                             <div className="flex items-center gap-2">
                                 <button
                                     className="appbar-btn-outline"
-                                    onClick={() => navigate("/signin")}
+                                    onClick={() => {
+                                        const cur = window.location.pathname + window.location.search
+                                        navigate(cur !== "/signin" && cur !== "/signup" ? `/signin?redirect=${encodeURIComponent(cur)}` : "/signin")
+                                    }}
                                 >
                                     Login
                                 </button>
                                 <button
                                     className="appbar-btn"
-                                    onClick={() => navigate("/signup")}
+                                    onClick={() => {
+                                        const cur = window.location.pathname + window.location.search
+                                        navigate(cur !== "/signin" && cur !== "/signup" ? `/signup?redirect=${encodeURIComponent(cur)}` : "/signup")
+                                    }}
                                 >
                                     Sign Up
                                 </button>
@@ -137,13 +143,21 @@ export function AppBar() {
                             <div className="flex gap-2 mt-1">
                                 <button
                                     className="appbar-btn-outline flex-1"
-                                    onClick={() => { setIsOpen(false); navigate("/signin") }}
+                                    onClick={() => {
+                                        setIsOpen(false)
+                                        const cur = window.location.pathname + window.location.search
+                                        navigate(cur !== "/signin" && cur !== "/signup" ? `/signin?redirect=${encodeURIComponent(cur)}` : "/signin")
+                                    }}
                                 >
                                     Login
                                 </button>
                                 <button
                                     className="appbar-btn flex-1"
-                                    onClick={() => { setIsOpen(false); navigate("/signup") }}
+                                    onClick={() => {
+                                        setIsOpen(false)
+                                        const cur = window.location.pathname + window.location.search
+                                        navigate(cur !== "/signin" && cur !== "/signup" ? `/signup?redirect=${encodeURIComponent(cur)}` : "/signup")
+                                    }}
                                 >
                                     Sign Up
                                 </button>
