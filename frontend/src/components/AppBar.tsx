@@ -1,46 +1,157 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 export function AppBar() {
     const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-    return <div className="relative z-50">
-        <nav className="bg-white border-gray-200 relative">
-            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src="/logo.svg" alt="logo" className="w-9" />
-                    <span className="self-center text-blue-800 font-playfair text-2xl font-semibold whitespace-nowrap ">Mee Sthiraasthi</span>
-                </a>
-                <button
-                    onClick={() => setIsOpen(prev => !prev)}
-                    data-collapse-toggle="navbar-default" type="button" className="cursor-pointer inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 " aria-controls="navbar-default" aria-expanded={isOpen}>
-                    <span className="sr-only">Open main menu</span>
-                    <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
-                    </svg>
-                </button>
-                <div className="hidden md:flex md:space-x-8 font-semibold text-lg">
-                    <a onClick={() => navigate("/properties/sell")} className="text-blue-700 hover:text-blue-600 cursor-pointer">Sell</a>
-                    <a href="#footer" className="text-blue-700 hover:text-blue-600">Contact</a>
-                    <a onClick={() => navigate("/signin")} className="text-blue-700 hover:text-blue-600 cursor-pointer">Login</a>
-                </div>
-                <div className={`md:hidden md:w-auto absolute top-15 left-auto right-4 rounded-2xl bg-white shadow-md transition-all duration-300 ease-in-out ${isOpen ? "opacity-90 visible" : "opacity-0 invisible"
-                    }`} id="navbar-default">
-                    <ul className="font-semibold text-lg flex flex-col text-right p-2 md:p-0 border border-gray-100 rounded-lg bg-gray-50 md:flex-row  md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white ">
-                        <li>
-                            <a onClick={() => { setIsOpen(false); navigate("/properties/sell") }} className="block py-2 px-3 text-blue-700 rounded-sm hover:bg-blue-900 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 cursor-pointer">Sell</a>
-                        </li>
-                        <li>
-                            <a href="#footer" onClick={() => setIsOpen(false)} className="block py-2 px-3 text-blue-700 rounded-sm hover:bg-blue-900 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 ">Contact</a>
-                        </li>
-                        <li>
-                            <a onClick={() => { setIsOpen(false); navigate("/signin") }} className="block py-2 px-3 text-blue-700 rounded-sm hover:bg-blue-900 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 cursor-pointer">Login</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    // Detect auth state
+    useEffect(() => {
+        setIsLoggedIn(!!localStorage.getItem("token"))
+    }, [])
 
-    </div>
+    function handleLogout() {
+        localStorage.removeItem("token")
+        setIsLoggedIn(false)
+        navigate("/")
+    }
+
+    const navLinks = (
+        <>
+            <a
+                onClick={() => { setIsOpen(false); navigate("/properties/rent") }}
+                className="appbar-link"
+            >
+                Browse
+            </a>
+            <a
+                onClick={() => { setIsOpen(false); navigate("/properties/sell") }}
+                className="appbar-link"
+            >
+                Sell / Rent
+            </a>
+            <a href="#footer" onClick={() => setIsOpen(false)} className="appbar-link">
+                Contact
+            </a>
+        </>
+    )
+
+    return (
+        <div className="relative z-50">
+            <nav
+                style={{
+                    background: "#fff",
+                    borderBottom: "1px solid #E2E8F0",
+                    boxShadow: "0 1px 8px rgba(30,58,95,0.06)",
+                }}
+            >
+                <div className="max-w-screen-xl flex items-center justify-between mx-auto px-4 py-3">
+                    {/* Logo */}
+                    <a href="/" className="flex items-center gap-3">
+                        <img src="/logo.svg" alt="logo" className="w-9 h-9" />
+                        <span
+                            className="font-playfair text-xl font-bold whitespace-nowrap"
+                            style={{ color: "#1E3A5F" }}
+                        >
+                            Mee Sthiraasthi
+                        </span>
+                    </a>
+
+                    {/* Desktop Nav */}
+                    <div className="hidden md:flex items-center gap-6">
+                        {navLinks}
+                        <div className="w-px h-5 bg-[#E2E8F0] mx-2" />
+                        {isLoggedIn ? (
+                            <button className="appbar-btn-outline" onClick={handleLogout}>
+                                Logout
+                            </button>
+                        ) : (
+                            <div className="flex items-center gap-2">
+                                <button
+                                    className="appbar-btn-outline"
+                                    onClick={() => navigate("/signin")}
+                                >
+                                    Login
+                                </button>
+                                <button
+                                    className="appbar-btn"
+                                    onClick={() => navigate("/signup")}
+                                >
+                                    Sign Up
+                                </button>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Mobile Hamburger */}
+                    <button
+                        onClick={() => setIsOpen((prev) => !prev)}
+                        type="button"
+                        className="cursor-pointer inline-flex items-center p-2 w-10 h-10 justify-center text-[#64748B] rounded-lg md:hidden hover:bg-[#F1F5F9]"
+                        aria-expanded={isOpen}
+                    >
+                        <span className="sr-only">Open main menu</span>
+                        {isOpen ? (
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        ) : (
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 17 14">
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
+                            </svg>
+                        )}
+                    </button>
+                </div>
+
+                {/* Mobile Menu */}
+                <div
+                    className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
+                    style={{ borderTop: isOpen ? "1px solid #E2E8F0" : "none" }}
+                >
+                    <div className="flex flex-col gap-1 px-4 py-3">
+                        <a
+                            onClick={() => { setIsOpen(false); navigate("/properties/rent") }}
+                            className="appbar-link py-2 block"
+                        >
+                            Browse
+                        </a>
+                        <a
+                            onClick={() => { setIsOpen(false); navigate("/properties/sell") }}
+                            className="appbar-link py-2 block"
+                        >
+                            Sell / Rent
+                        </a>
+                        <a href="#footer" onClick={() => setIsOpen(false)} className="appbar-link py-2 block">
+                            Contact
+                        </a>
+                        <div className="h-px bg-[#E2E8F0] my-2" />
+                        {isLoggedIn ? (
+                            <button
+                                className="appbar-btn-outline w-full mt-1"
+                                onClick={() => { setIsOpen(false); handleLogout() }}
+                            >
+                                Logout
+                            </button>
+                        ) : (
+                            <div className="flex gap-2 mt-1">
+                                <button
+                                    className="appbar-btn-outline flex-1"
+                                    onClick={() => { setIsOpen(false); navigate("/signin") }}
+                                >
+                                    Login
+                                </button>
+                                <button
+                                    className="appbar-btn flex-1"
+                                    onClick={() => { setIsOpen(false); navigate("/signup") }}
+                                >
+                                    Sign Up
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </nav>
+        </div>
+    )
 }

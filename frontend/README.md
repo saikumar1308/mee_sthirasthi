@@ -1,50 +1,49 @@
-# React + TypeScript + Vite
+# Mee Sthiraasthi — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> React + TypeScript + Vite + Tailwind CSS v4
 
-Currently, two official plugins are available:
+👉 **See the full setup guide in the [root README](../README.md)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Quick Start
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+npm install
+npm run dev       # http://localhost:5173
+npm run build     # production build → dist/
+npm run preview   # preview production build locally
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Key Config
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Set the backend URL in [`src/config.ts`](./src/config.ts):
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```ts
+export const BACKEND_URL = "http://localhost:8787"; // or your deployed worker URL
+```
+
+## Tech Stack
+
+| Tool | Purpose |
+|------|---------|
+| React 18 | UI framework |
+| TypeScript | Type safety |
+| Vite | Dev server + bundler |
+| Tailwind CSS v4 | Utility-first styling |
+| React Router v7 | Client-side routing |
+| Axios | HTTP requests |
+| Cloudinary | Image upload (direct from browser) |
+| Vercel Analytics | Usage tracking |
+
+## Project Structure
+
+```
+src/
+├── components/       # Shared UI components
+├── hooks/            # Custom React hooks
+├── pages/            # Route-level page components
+├── config.ts         # BACKEND_URL
+├── index.css         # Global design system
+└── App.tsx           # Root with BrowserRouter + routes
 ```
