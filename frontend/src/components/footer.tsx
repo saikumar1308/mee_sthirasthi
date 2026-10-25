@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 export function Footer() {
     return (
         <footer
@@ -10,23 +12,23 @@ export function Footer() {
         >
             <div className="max-w-screen-xl mx-auto px-6 py-14">
                 <div className="grid md:grid-cols-3 gap-10">
-                    {/* Brand */}
+                    {/* Brand - English Name */}
                     <div>
-                        <a href="/" className="flex items-center gap-3 mb-4">
+                        <Link to="/" className="flex items-center gap-3 mb-4 text-white hover:opacity-90 transition-opacity">
                             <img src="/logo.svg" className="h-9 brightness-0 invert" alt="Mee Sthiraasthi Logo" />
                             <span
-                                className="gurajada-regular"
-                                style={{ color: "#FCD34D", fontSize: 26, fontWeight: 600 }}
+                                className="font-playfair text-2xl font-bold whitespace-nowrap"
+                                style={{ color: "#FCD34D" }}
                             >
-                                మీ స్థిరాస్థి
+                                Mee Sthiraasthi
                             </span>
-                        </a>
+                        </Link>
                         <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 14, lineHeight: 1.7, maxWidth: 260 }}>
                             Your trusted partner for buying, selling, and renting properties across Telangana &amp; Andhra Pradesh.
                         </p>
                     </div>
 
-                    {/* Quick Links */}
+                    {/* Quick Links with React Router Link */}
                     <div>
                         <h3 style={{ color: "#FCD34D", fontSize: 13, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 16 }}>
                             Quick Links
@@ -39,14 +41,15 @@ export function Footer() {
                                 { label: "List Your Property", href: "/properties/sell" },
                             ].map((l) => (
                                 <li key={l.label}>
-                                    <a
-                                        href={l.href}
+                                    <Link
+                                        to={l.href}
+                                        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                                         style={{ color: "rgba(255,255,255,0.65)", fontSize: 14, textDecoration: "none", transition: "color 0.2s" }}
                                         onMouseEnter={(e) => (e.currentTarget.style.color = "#FCD34D")}
                                         onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.65)")}
                                     >
                                         {l.label}
-                                    </a>
+                                    </Link>
                                 </li>
                             ))}
                         </ul>

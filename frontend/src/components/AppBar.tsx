@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 export function AppBar() {
     const navigate = useNavigate()
@@ -47,16 +47,16 @@ export function AppBar() {
                 }}
             >
                 <div className="max-w-screen-xl flex items-center justify-between mx-auto px-4 py-3">
-                    {/* Logo */}
-                    <a href="/" className="flex items-center gap-3">
+                    {/* Logo - Telugu Name */}
+                    <Link to="/" className="flex items-center gap-3">
                         <img src="/logo.svg" alt="logo" className="w-9 h-9" />
                         <span
-                            className="font-playfair text-xl font-bold whitespace-nowrap"
+                            className="gurajada-regular text-2xl sm:text-3xl font-bold whitespace-nowrap"
                             style={{ color: "#1E3A5F" }}
                         >
-                            Mee Sthiraasthi
+                            మీ స్థిరాస్థి
                         </span>
-                    </a>
+                    </Link>
 
                     {/* Desktop Nav */}
                     <div className="hidden md:flex items-center gap-6">
