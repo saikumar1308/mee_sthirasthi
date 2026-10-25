@@ -1,5 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from "react"
-import { Link } from "react-router-dom"
+import { Component, ErrorInfo, ReactNode } from "react"
 
 interface Props {
     children: ReactNode
